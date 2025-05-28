@@ -3,58 +3,47 @@
 
     <form class="form-group" #userForm="ngForm">
 
-        {{userForm.value | json}}
-
-        <div class="adress border p-5 mb-1">
-            <h2>Addres</h2>
-            <div class="form-group">
-                <label for="">Street</label>
-                <input type="text" class="form-control" name="street">
-            </div>
-
-            <div class="form-group">
-                <label for="">City</label>
-                <input type="text" class="form-control" name="city">
-            </div>
-
-            <div class="form-group">
-                <label for="">State</label>
-                <input type="text" class="form-control" name="state">
-            </div>
-        </div>
-
-        <div class="personal-info border p-5 mb-1">
+        <div class="personal-info border p-5 mb-1" style="background-color: rgb(244, 240, 243);">
             <h2>Personal info</h2>
             <div class="form-group">
                 <label for="">Name</label>
-                <input type="text" class="form-control" name="username" ngModel>
+                <input #name="ngModel" type="text" required [class.is-invalid]="name.invalid && name.touched" class="form-control" name="username" [(ngModel)]="userModel.name">
+                <div *ngIf="">
+
+               </div>
+                <!-- <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small> -->
             </div>
 
             <div class="form-group">
                 <label for="">Email</label>
-                <input type="email" class="form-control" name="email" ngModel>
+                <input type="email" class="form-control" name="email" [(ngModel)]="userModel.email">
             </div>
 
             <div class="form-group">
                 <label for="">Phone</label>
-                <input type="tel" class="form-control" name="phone" ngModel>
+                <input type="tel" #phone="ngModel" [class.is-invalid]="phone.invalid && phone.touched" pattern="^\d{11}$" required class="form-control" name="phone" [(ngModel)]="userModel.phone">
+                <div *ngIf="phone.invalid && phone.touched">
+                    <small class="text-danger" *ngIf="phone.errors?.['required']">Phone number is required</small>
+                    <small class="text-danger" *ngIf="phone.errors?.['pattern']">Phone number must be 11 digit</small>
+                </div>
+                <!-- <small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Pnone numberis required must be 10 digit</small> -->
             </div>
 
             <div class="form-group mb-4 mt-4">
-                <select class="custom-select" name="topic" id="" ngModel>
+                <select class="custom-select" name="topic" id="" [(ngModel)]="userModel.topic">
                     <option value="">I am interested in</option>
                     <option *ngFor="let topic of topics">{{ topic }}</option>
                 </select>
             </div>
 
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" ngModel>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" [(ngModel)]="userModel.timePreference">
                 <label class="form-check-label" for="flexRadioDefault1">
                     Morning
                 </label>
             </div>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" ngModel>
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" [(ngModel)]="userModel.timePreference">
                 <label class="form-check-label" for="flexRadioDefault2">
                     Evening
                 </label>
@@ -64,7 +53,7 @@
 
             <div class="form-check mt-4">
                 <input class="form-check-input" type="checkbox" value="evening" name="subscrib" id="flexCheckChecked"
-                    checked ngModel>
+                    checked [(ngModel)]="userModel.subscribe">
                 <label class="form-check-label" for="flexCheckChecked">
                     Send me promotonal offers
                 </label>
