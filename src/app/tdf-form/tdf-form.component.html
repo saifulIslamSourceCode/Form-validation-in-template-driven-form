@@ -1,0 +1,81 @@
+<div class="container-fluid">
+    <h1>Bootcamp Enroolment Form</h1>
+
+    <form class="form-group" #userForm="ngForm">
+
+        {{userForm.value | json}}
+
+        <div class="adress border p-5 mb-1">
+            <h2>Addres</h2>
+            <div class="form-group">
+                <label for="">Street</label>
+                <input type="text" class="form-control" name="street">
+            </div>
+
+            <div class="form-group">
+                <label for="">City</label>
+                <input type="text" class="form-control" name="city">
+            </div>
+
+            <div class="form-group">
+                <label for="">State</label>
+                <input type="text" class="form-control" name="state">
+            </div>
+        </div>
+
+        <div class="personal-info border p-5 mb-1">
+            <h2>Personal info</h2>
+            <div class="form-group">
+                <label for="">Name</label>
+                <input type="text" class="form-control" name="username" ngModel>
+            </div>
+
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="email" class="form-control" name="email" ngModel>
+            </div>
+
+            <div class="form-group">
+                <label for="">Phone</label>
+                <input type="tel" class="form-control" name="phone" ngModel>
+            </div>
+
+            <div class="form-group mb-4 mt-4">
+                <select class="custom-select" name="topic" id="" ngModel>
+                    <option value="">I am interested in</option>
+                    <option *ngFor="let topic of topics">{{ topic }}</option>
+                </select>
+            </div>
+
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" ngModel>
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Morning
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" ngModel>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    Evening
+                </label>
+            </div>
+
+
+
+            <div class="form-check mt-4">
+                <input class="form-check-input" type="checkbox" value="evening" name="subscrib" id="flexCheckChecked"
+                    checked ngModel>
+                <label class="form-check-label" for="flexCheckChecked">
+                    Send me promotonal offers
+                </label>
+            </div>
+
+        </div>
+        <button class="btn btn-primary mt-4" type="submit">
+            Submit From
+        </button>
+
+
+
+    </form>
+</div>
