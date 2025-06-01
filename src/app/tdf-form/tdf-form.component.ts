@@ -13,6 +13,16 @@ import { User } from '../user';
 })
 export class TdfFormComponent {
   topics: string[] = ["Angular", "React", "Vue"];
+  topisHasError: boolean = true;
 
-  userModel = new User('', 'rob@test.com', 44444444, '', 'morning', true);
+  userModel = new User('', 'rob@test.com', 44444444, 'default', 'morning', true);
+
+  //sectct tag error validation
+  validateTopic(value: any) {
+    if(value == 'default') {
+      this.topisHasError = true;
+    } else {
+      this.topisHasError = false;
+    }
+  }
 }
