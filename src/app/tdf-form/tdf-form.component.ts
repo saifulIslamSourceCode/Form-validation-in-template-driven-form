@@ -1,9 +1,13 @@
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { EnrollmentService } from '../services/enrollment.service';
 
 import { FormsModule, NgForm } from '@angular/forms';
 import { pipe } from 'rxjs';
 import { User } from '../user';
+import { error } from 'console';
+// import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-tdf-form',
@@ -13,16 +17,25 @@ import { User } from '../user';
 })
 export class TdfFormComponent {
   topics: string[] = ["Angular", "React", "Vue"];
-  topisHasError: boolean = true;
+  topicHasError: boolean = false;
+  submitted: boolean = false;
+  errorMassage: string = '';
 
-  userModel = new User('', 'rob@test.com', 44444444, 'default', 'morning', true);
+  userModel = new User('Rob', 'rob@test.com', 44444441114, '', 'morning', true);
+
+  constructor(private _enrollmentService: EnrollmentService) { }
 
   //sectct tag error validation
-  validateTopic(value: any) {
-    if(value == 'default') {
-      this.topisHasError = true;
-    } else {
-      this.topisHasError = false;
-    }
+  validateTopic(value: any): void {
+    this.topicHasError = (value === '');
+  }
+
+  //form submitions
+  onSubmit(): void {
+    this.submitted = true;
+    this._enrollmentService.enroll(this.userModel).subscribe({
+      next: data => console.log("success", data),
+      error: error => this.errorMassage = error.statusText
+    })
   }
 }
